@@ -1,13 +1,17 @@
 import './App.css';
 import WeatherCard from './components/WeatherCard';
+import React from "react"
 
-function App() {
+export default class App extends React.Component {
+	componentDidMount() {
+		localStorage.setItem("chakra-ui-color-mode", "dark")
+	}
+render() {
   return (
     <div className="App">
-    <h1>Hello </h1>
     <WeatherCard />
     </div>
   );
+	}
 }
 
-export default App;
