@@ -5,6 +5,19 @@ export const WEATHER_QUERY = gql`
 		getCityByName(name: $name) {
 			name
 			country
+			  weather {
+  				summary {
+    					title
+    					description
+    					icon
+  					}
+    				temperature {
+      				actual
+      				feelsLike
+      				min
+      				max
+    				}
+  			}
 		}
 	}
 `
