@@ -1,37 +1,41 @@
+import {useLazyQuery} from "@apollo/client"
 import {Heading, Flex} from "@chakra-ui/layout"
-import {FormLabel, Input} from "@chakra-ui/react"
-import React, {ChangeEvent} from "react"
-import WeatherReq from "./WeatherReq"
+import {FormLabel, Input, Button, Text} from "@chakra-ui/react"
+import React, {ChangeEvent, useState} from "react"
+import {WEATHER_QUERY} from "./gql/Queries"
 
-export default class WeatherCard extends React.Component<{}, WCState> {
-	constructor(props: any) {
-		super(props)
-		this.state = {
-			cityName: "",
-			showWeather: false
-		}
-	}		
+const WeatherCard: React.FC = () => {
 
 
-	render() {
-		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-			this.setState({cityName: e.target.value})
-			console.log(this.state.cityName)
-		}
-		return (
-			<Flex alignItems="center" justifyContent="center" height="100vh" >
-				<Flex background="gray.600" padding={12} direction="column">
-					<Heading mb={6}>Weather </Heading>
-					<FormLabel>Name of City</FormLabel>
-					<Input mb={3} value={this.state.cityName} onChange={handleChange} isRequired placeholder="City Name" variant="outline" />
-					<WeatherReq name={this.state.cityName} />
-				</Flex>
+	const [cityName, setCityName] = useState<string>("")
+	const [finalCity, setFinalCity] = useState<string>("")	
+	const [getWeather, {loading, error, data}] = useLazyQuery(WEATHER_QUERY, {
+		variables: {name: finalCity}
+	})
+
+	if (loading) return <Text>Loading </Text>
+	if (error) return <Text>An error occured</Text>
+	if (data) {
+		console.log(data)
+	}
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setCityName(e.target.value)
+	}
+		
+	return (
+		<Flex alignItems="center" justifyContent="center" height="100vh" >
+			<Flex background="gray.600" padding={12} direction="column">
+				<Heading mb={6}>Weather </Heading>
+				<FormLabel>Name of City</FormLabel>
+				<Input mb={3} value={cityName} onChange={handleChange} isRequired placeholder="City Name" variant="outline" />
+				<Button onClick={() => {
+					setFinalCity(cityName)
+					getWeather()
+					}} colorScheme="teal">Get Weather Information</Button>
 			</Flex>
+		</Flex>
 		)
 	}
-}
 
-interface WCState {
-	cityName: string,
-	showWeather: boolean
-}
+ export default WeatherCard
