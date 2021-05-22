@@ -1,5 +1,5 @@
 import './App.css';
-import WeatherCard from './components/WeatherCard';
+import WeatherSearch from './components/WeatherSearch';
 import React from "react"
 
 export default class App extends React.Component {
@@ -9,7 +9,7 @@ export default class App extends React.Component {
 render() {
   return (
     <div className="App">
-    <WeatherCard />
+    <WeatherSearch />
     </div>
   );
 	}
