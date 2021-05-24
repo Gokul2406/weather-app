@@ -36,8 +36,7 @@ const WeatherSearch: React.FC = () => {
 					}} colorScheme="teal">Get Weather Information</Button>
 			</Flex>
 		</Flex>
-		<Flex direction="column" alignItems="center" justifyContent="center" height="50vh">
-			
+		<Flex direction="column" alignItems="center" justifyContent="center" height="50vh">	
 			{ready ? <WeatherCard data={data} /> : null}
 		</Flex>
 	</>

@@ -7,8 +7,8 @@ export default interface WeatherInterface {
 				title: string,
 				description: string
 			},
-			temparature: {
-				actual: number,
+			temperature: {
+				actual: string,
 				feelsLike: number,
 				min: number,
 				max: number
